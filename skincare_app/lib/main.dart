@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart'; // Import provider package
 import 'screens/home_screen.dart';
+import 'screens/cart_screen.dart';
 import 'providers/cart_provider.dart';
+import 'providers/product_provider.dart';
+import 'widgets/header.dart';
+import 'screens/marketplace.dart';
+import 'widgets/camera_page_final.dart';  
+
+
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => CartProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -19,8 +29,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Skincare App',
-      theme: ThemeData(primarySwatch: Colors.pink),
-      home: const MainNavigation(),
+      home:  CameraPage(),
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+        scaffoldBackgroundColor: Colors.white,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.white,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -39,24 +55,49 @@ class _MainNavigationState extends State<MainNavigation> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const PlaceholderScreen(title: 'Face Analysis'),
-    const PlaceholderScreen(title: 'Cart'),
-    const PlaceholderScreen(title: 'Checkout'),
+    const CartScreen(),
+    const MarketplaceScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
+      extendBody: true,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const CustomHeader(),
+            Expanded(child: _screens[_selectedIndex]),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
         currentIndex: _selectedIndex,
         onTap: (index) => setState(() => _selectedIndex = index),
-        selectedItemColor: Colors.pink,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.black,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Marketplace'),
-          BottomNavigationBarItem(icon: Icon(Icons.face), label: 'Face Analysis'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
-          BottomNavigationBarItem(icon: Icon(Icons.payment), label: 'Checkout'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.face),
+            label: 'Face Analysis',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+         
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: 'Marketplace',
+          ),
         ],
       ),
     );

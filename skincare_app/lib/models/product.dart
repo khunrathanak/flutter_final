@@ -4,7 +4,7 @@ class Product {
   final String type;
   final String image;
   final String ingredients;
-  final int safety;
+  final String safety;
   final bool oily;
   final bool dry;
   final bool sensitive;
@@ -41,7 +41,7 @@ class Product {
     type: json['type'] as String,
     image: json['image'] as String,
     ingredients: json['ingredients'] as String,
-    safety: int.tryParse(json['safety'].toString()) ?? 0,
+    safety: json['safety'] as String,
     oily: (json['oily'] as int) == 1,
     dry: (json['dry'] as int) == 1,
     sensitive: (json['sensitive'] as int) == 1,
