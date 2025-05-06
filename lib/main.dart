@@ -9,7 +9,6 @@ import 'screens/marketplace.dart';
 import 'screens/camera_page_final.dart';  
 
 
-
 void main() {
   runApp(
     MultiProvider(
@@ -54,7 +53,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
   final List<Widget> _screens = [
     const HomeScreen(),
-    const PlaceholderScreen(title: 'Face Analysis'),
+    const CameraPage(),
     const CartScreen(),
     const MarketplaceScreen(),
   ];
