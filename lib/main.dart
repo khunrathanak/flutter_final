@@ -6,7 +6,7 @@ import 'providers/cart_provider.dart';
 import 'providers/product_provider.dart';
 import 'widgets/header.dart';
 import 'screens/marketplace.dart';
-import 'widgets/camera_page_final.dart';  
+import 'screens/camera_page_final.dart';  
 
 
 
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Skincare App',
-      home:  CameraPage(),
+      home:  const MainNavigation(),
       theme: ThemeData(
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: Colors.white,
